@@ -1,4 +1,4 @@
-def search(substring):
+def search_std_lib(substring):
     last_number = 0
     sequence = ""
     while True:
@@ -8,7 +8,8 @@ def search(substring):
         else:
             return sequence.find(substring)+1
 
+
 if __name__ == '__main__':
-    print(search("6789"))
-    print(search("101"))
+    print(search_std_lib("6789"))
+    print(search_std_lib("101"))
 

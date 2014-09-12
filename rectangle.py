@@ -6,13 +6,14 @@ class Rectangle(object):
         self.x_CD = int(coordinates[1])
         self.y_AD = int(coordinates[2])
         self.y_BC = int(coordinates[3])
+        self.calculated = False
 
     def square(self):
         return (self.x_CD - self.x_AB)*(self.y_BC - self.y_AD)
 
 
 # Fill list of rectangles
-with open("D:\\rectangles.txt") as f:
+with open(sys.argv[1]) as f:
     rect_list = []
     for line in f.readlines():
         rect_list.append(Rectangle(line[0:-1].split(" ")))
