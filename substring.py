@@ -1,3 +1,5 @@
+import sys
+
 def search_std_lib(substring):
     last_number = 0
     sequence = ""
@@ -12,4 +14,9 @@ def search_std_lib(substring):
 if __name__ == '__main__':
     print(search_std_lib("6789"))
     print(search_std_lib("101"))
+
+    if len(sys.argv) > 1:
+        for substring in sys.argv[1:]:
+            print(search_std_lib(substring))
+
 

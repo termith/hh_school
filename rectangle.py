@@ -1,31 +1,63 @@
 import sys
 
-class Rectangle(object):
-    def __init__(self, coordinates):
-        self.x_AB = int(coordinates[0])
-        self.x_CD = int(coordinates[1])
-        self.y_AD = int(coordinates[2])
-        self.y_BC = int(coordinates[3])
-        self.calculated = False
+if __name__ == '__main__':
 
-    def square(self):
-        return (self.x_CD - self.x_AB)*(self.y_BC - self.y_AD)
+    if len(sys.argv) < 2:
+        input_file = "./input.txt"
+    else:
+        input_file = sys.argv[1]
+
+        x_array = []
+        y_array = []
+
+    # Open input file
+    with open(input_file) as f:
+        # For source rectangles
+        rect_array = []
+
+        # Coordinates arrays will represent a grid
+
+        # Fill arrays
+        for line in f.readlines():
+            x1, y1, x2, y2 = line[0:-1].split(" ")
+            x_array.append(int(x1))
+            x_array.append(int(x2))
+            y_array.append(int(y1))
+            y_array.append(int(y2))
+
+            rect_array.append([int(x1), int(y1), int(x2), int(y2)])
+
+    # Remove duplicates and sort arrays
+    x_array = list(set(x_array)).sort()
+    y_array = list(set(y_array)).sort()
+
+    print(type(x_array))
 
 
-# Fill list of rectangles
-with open(sys.argv[1]) as f:
-    rect_list = []
-    for line in f.readlines():
-        rect_list.append(Rectangle(line[0:-1].split(" ")))
-i = 0
-common_square = 0
-while i < len(rect_list):
-    first_rect = rect_list[i]
-    second_rect = rect_list[i+1]
+    def square(rectangle):
+        return (rectangle[2] - rectangle[0]) * (rectangle[3] - rectangle[1])  # (x2-x1)*(y2-y1)
 
-    if first_rect.x_CD <= second_rect.x_AB: #Не пересекаются, первый правее второго
-        common_square += first_rect.square() + second_rect.square() 
 
+    def check_rectangle(mesh):
+        for rectangle in rect_array:
+            if (mesh[2] >= rectangle[0] and mesh[2] <= rectangle[2]) and (
+                            mesh[3] >= rectangle[1] and mesh[3] <= rectangle[3]):
+                return True
+        return False
+
+
+    result = 0
+    # Go through x-array:
+    for i in range(len(x_array)):
+        for j in range(len(y_array)):
+            mesh = list(x_array[i], y_array[j], x_array[i + 1], y_array[j + 1])
+            if check_rectangle(mesh):
+                result += square(mesh)
+
+                # Go through y-array:
+                # Check if rectangle x1x2y1y2 is in target figure
+                # If it is:
+                # Result += square of rectangle
 
 
 
