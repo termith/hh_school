@@ -7,8 +7,10 @@ if __name__ == '__main__':
     else:
         input_file = sys.argv[1]
 
-        x_array = []
-        y_array = []
+    x_array = []
+    y_array = []
+
+    print(type(x_array))
 
     # Open input file
     with open(input_file) as f:
@@ -28,8 +30,8 @@ if __name__ == '__main__':
             rect_array.append([int(x1), int(y1), int(x2), int(y2)])
 
     # Remove duplicates and sort arrays
-    x_array = list(set(x_array)).sort()
-    y_array = list(set(y_array)).sort()
+    x_array = list(set(sorted(x_array)))
+    y_array = list(set(sorted(y_array)))
 
     print(type(x_array))
 
@@ -48,9 +50,9 @@ if __name__ == '__main__':
 
     result = 0
     # Go through x-array:
-    for i in range(len(x_array)):
-        for j in range(len(y_array)):
-            mesh = list(x_array[i], y_array[j], x_array[i + 1], y_array[j + 1])
+    for i in range(len(x_array)-1):
+        for j in range(len(y_array)-1):
+            mesh = [x_array[i], y_array[j], x_array[i + 1], y_array[j + 1]]
             if check_rectangle(mesh):
                 result += square(mesh)
 
@@ -59,7 +61,7 @@ if __name__ == '__main__':
                 # If it is:
                 # Result += square of rectangle
 
-
+print(result)
 
 
 
