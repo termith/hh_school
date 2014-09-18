@@ -31,11 +31,13 @@ def square(rectangle):
 
 
 def check_rectangle(mesh, rect_array):
+
+    #Check if mesh lies into one of rectangles
     for rectangle in rect_array:
         if (mesh[2] >= rectangle[0] and mesh[2] <= rectangle[2]) and (
                         mesh[1] >= rectangle[1] and mesh[1] <= rectangle[3]) and (
-                mesh[0] >= rectangle[0] and mesh[0] <= rectangle[2]) and (
-                mesh[3] >= rectangle[1] and mesh[3] <= rectangle[3]):
+                        mesh[0] >= rectangle[0] and mesh[0] <= rectangle[2]) and (
+                        mesh[3] >= rectangle[1] and mesh[3] <= rectangle[3]):
             return True
     return False
 
@@ -47,6 +49,7 @@ def main():
 
     result = 0
 
+    #Go through grid
     for i in range(len(x_array) - 1):
         for j in range(len(y_array) - 1):
             mesh = [x_array[i], y_array[j], x_array[i + 1], y_array[j + 1]]
